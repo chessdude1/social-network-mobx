@@ -1,25 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
+import {
+  ThemeProvider,
+  createTheme,
+  responsiveFontSizes,
+} from '@mui/material/styles';
 import './App.css';
+
+const theme = responsiveFontSizes(
+  createTheme({
+    typography: {
+      allVariants: {
+        fontFamily: 'Inter',
+        textTransform: 'none',
+      },
+    },
+  })
+);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className='App'>
+        <h1>Test</h1>
+      </div>
+    </ThemeProvider>
   );
 }
 
