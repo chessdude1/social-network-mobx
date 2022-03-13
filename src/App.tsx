@@ -4,7 +4,10 @@ import {
   createTheme,
   responsiveFontSizes,
 } from '@mui/material/styles';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
+import { RegistrationPage } from './Views/RegistrationPage/RegistrationPage';
+import { AuthPage } from './Views/AuthPage/AuthPage';
 
 const theme = responsiveFontSizes(
   createTheme({
@@ -20,9 +23,11 @@ const theme = responsiveFontSizes(
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <div className='App'>
-        <h1>Test</h1>
-      </div>
+      <Routes>
+        <Route path='/registration' element={<RegistrationPage />} />
+        <Route path='/authorization' element={<AuthPage />} />
+        <Route path='*' element={<RegistrationPage />} />
+      </Routes>
     </ThemeProvider>
   );
 }
