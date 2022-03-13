@@ -1,0 +1,11 @@
+{
+  "numbers": [
+    { "id": 1, "title": "Misha", "number": "89000" },
+    { "id": 2, "title": "Alex", "number": "87000" }
+  ],
+  "comments": [{ "id": 1, "body": "some comment", "postId": 1 }],
+  "profile": [
+    { "name": "typicode", "number": "89000" },
+    { "name": "typicode", "number": "89000" }
+  ]
+}
