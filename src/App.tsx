@@ -20,7 +20,7 @@ const theme = responsiveFontSizes(
   })
 );
 
-function App() {
+export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Routes>
@@ -30,6 +30,6 @@ function App() {
       </Routes>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

@@ -1,3 +1,7 @@
 .App {
   text-align: center;
 }
+
+:root {
+  font-size: 10px;
+}

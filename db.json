@@ -1,11 +1,22 @@
 {
-  "numbers": [
-    { "id": 1, "title": "Misha", "number": "89000" },
-    { "id": 2, "title": "Alex", "number": "87000" }
+  "profiles": [
+    {
+      "id": 1,
+      "userName": "Misha",
+      "password": "89000",
+      "number": "1111",
+      "contacts": [{ "name": "typicode", "number": "89000" }]
+    },
+    {
+      "id": 2,
+      "userName": "Alex",
+      "password": "87000",
+      "number": "2222",
+      "contacts": []
+    }
   ],
-  "comments": [{ "id": 1, "body": "some comment", "postId": 1 }],
-  "profile": [
-    { "name": "typicode", "number": "89000" },
-    { "name": "typicode", "number": "89000" }
+  "users": [
+    { "userName": "Misha", "number": "89000" },
+    { "userName": "Alex", "number": "87000" }
   ]
 }
