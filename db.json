@@ -1,22 +1,21 @@
 {
   "profiles": [
     {
-      "id": 1,
-      "userName": "Misha",
-      "password": "89000",
-      "number": "1111",
-      "contacts": [{ "name": "typicode", "number": "89000" }]
-    },
-    {
-      "id": 2,
-      "userName": "Alex",
-      "password": "87000",
-      "number": "2222",
-      "contacts": []
+      "userName": "Teta",
+      "password": "322",
+      "number": "123123",
+      "contacts": [],
+      "id": 1
     }
   ],
   "users": [
-    { "userName": "Misha", "number": "89000" },
-    { "userName": "Alex", "number": "87000" }
-  ]
+    {
+      "userName": "Дмитрий",
+      "number": "89261234567",
+      "id": 2
+    }
+  ],
+  "numbers": {
+    "89261234567": ""
+  }
 }

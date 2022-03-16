@@ -10,10 +10,12 @@ import * as Yup from 'yup';
 
 import { CustomTextField } from '../../Common/CustomTextField';
 import { CustomButton } from '../../Common/CustomButton';
+import { localHostService } from '../../Service/Serviсe';
 
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
+      paddingTop: '100px',
       maxWidth: '35rem',
       display: 'block',
       margin: '0 auto',
@@ -34,8 +36,7 @@ interface ISignUpForm {
   Name: string;
   password: string;
   confirmPassword: string;
-  email: string;
-  file: string;
+  number: string;
 }
 
 export const RegistrationPage = () => {
@@ -48,11 +49,20 @@ export const RegistrationPage = () => {
           Name: '',
           password: '',
           confirmPassword: '',
-          email: '',
-          file: '',
+          number: '',
         }}
-        onSubmit={(values: ISignUpForm) => {
-          console.log('submitted');
+        onSubmit={async (values: ISignUpForm) => {
+          try {
+            const resultOfSetNewProfile = await localHostService.setNewProfile({
+              userName: values.Name,
+              password: values.password,
+              number: values.number,
+              contacts: [],
+            });
+            console.log(resultOfSetNewProfile);
+          } catch (e) {
+            console.log(e);
+          }
         }}
         validationSchema={Yup.object().shape({
           Name: Yup.string().required('Введите имя'),
@@ -63,8 +73,14 @@ export const RegistrationPage = () => {
             .required(
               'Введите валидный пароль, состоящий из одного символа в нижнем регистре, одного в верхнем и одного специального символа. Длина пароля не менее 8 символов.'
             ),
+          number: Yup.string()
+            .matches(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/)
+            .required(
+              'Введите валидный номер мобильного телефона пример: 89001234567'
+            ),
+
           confirmPassword: Yup.string()
-            .required('Required')
+            .required('Обязательное поле')
             .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать'),
         })}
       >
@@ -109,6 +125,31 @@ export const RegistrationPage = () => {
                         : 'Введите имя пользователя'
                     }
                     error={!!(errors.Name && touched.Name)}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </Grid>
+                <Grid
+                  sx={{ margin: '0 auto' }}
+                  item
+                  lg={10}
+                  md={10}
+                  sm={10}
+                  xs={10}
+                  className={classes.textField}
+                >
+                  <CustomTextField
+                    name='number'
+                    id='number'
+                    label='Номер'
+                    value={values.number}
+                    type='text'
+                    helperText={
+                      errors.number && touched.number
+                        ? 'Номер должен быть вида : 89001234567'
+                        : 'Введите номер'
+                    }
+                    error={!!(errors.number && touched.number)}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
