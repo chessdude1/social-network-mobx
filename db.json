@@ -6,6 +6,13 @@
       "number": "123123",
       "contacts": [],
       "id": 1
+    },
+    {
+      "userName": "Test",
+      "password": "1234qwerQ!",
+      "number": "88005553535",
+      "contacts": [],
+      "id": 1
     }
   ],
   "users": [
