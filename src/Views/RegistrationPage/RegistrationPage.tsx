@@ -11,6 +11,7 @@ import * as Yup from 'yup';
 import { CustomTextField } from '../../Common/CustomTextField';
 import { CustomButton } from '../../Common/CustomButton';
 import { localHostService } from '../../Service/Serviсe';
+import { UserStore } from '../../Store/UserStore';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -53,13 +54,18 @@ export const RegistrationPage = () => {
         }}
         onSubmit={async (values: ISignUpForm) => {
           try {
-            const resultOfSetNewProfile = await localHostService.setNewProfile({
+            const currentProfile = {
               userName: values.Name,
               password: values.password,
               number: values.number,
               contacts: [],
-            });
-            console.log(resultOfSetNewProfile);
+            };
+            const resultOfSetNewProfile = await localHostService.setNewProfile(
+              currentProfile
+            );
+            if (resultOfSetNewProfile === 'ok') {
+              UserStore.setNewProfile(currentProfile);
+            }
           } catch (e) {
             console.log(e);
           }

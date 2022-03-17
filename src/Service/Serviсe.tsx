@@ -13,8 +13,8 @@ class Service {
   }
 
   async getProfiles() {
-    const movieResponse = await this.baseURL.get('profiles');
-    return movieResponse.data;
+    const profilesResponse = await this.baseURL.get('profiles');
+    return profilesResponse.data;
   }
 
   async checkAuthorizaitonStatus(
@@ -61,6 +61,25 @@ class Service {
     await this.baseURL.patch('numbers', newProfile.number);
 
     return 'ok';
+  }
+
+  async searchProfile(query: string) {
+    const findedProfiles = await this.baseURL.get(`profiles?q=${query}`);
+    return findedProfiles.data;
+  }
+
+  async deleteContact(profile: IProfile, numberToDelete: string) {
+    let profileForDeleting = await this.baseURL.get(
+      `profiles?q=${profile.number}`
+    );
+    for (let i = 0; i < profileForDeleting.data[0].contacts.length; i++) {
+      if (profileForDeleting.data[0].contacts[i].number === numberToDelete) {
+        profileForDeleting.data[0].contacts.splice(i, 1);
+      }
+    }
+    console.log(profileForDeleting.data[0].id);
+    await this.baseURL.delete('profiles', profileForDeleting.data[0]);
+    await this.baseURL.post('profiles', profileForDeleting.data[0]);
   }
 }
 

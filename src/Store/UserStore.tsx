@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import { IProfile } from '../Service/ServiceTypes';
+import { localHostService } from '../Service/Serviсe';
 
 class User {
   isAutorized: boolean = false;
@@ -13,6 +14,15 @@ class User {
     makeAutoObservable(this);
   }
 
+  deleteContact(number: string) {
+    for (let i = 0; i < this.profile.contacts.length; i++) {
+      if (this.profile.contacts[i].number === String(number)) {
+        this.profile.contacts.splice(i, 1);
+      }
+    }
+    localHostService.deleteContact(this.profile, number);
+  }
+
   setUserAuthorized() {
     this.isAutorized = true;
   }
@@ -21,8 +31,12 @@ class User {
     this.isAutorized = false;
   }
 
-  setNewUser(profile: IProfile) {
+  setNewProfile(profile: IProfile) {
     this.profile = profile;
+  }
+
+  getProfile() {
+    return this.profile;
   }
 
   setContacts(userName: string, number: string) {

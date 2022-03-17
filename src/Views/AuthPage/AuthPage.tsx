@@ -11,6 +11,7 @@ import * as Yup from 'yup';
 import { CustomTextField } from '../../Common/CustomTextField';
 import { CustomButton } from '../../Common/CustomButton';
 import { localHostService } from '../../Service/Serviсe';
+import { UserStore } from '../../Store/UserStore';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -51,6 +52,7 @@ export const AuthPage = () => {
               values.password
             );
           if (authorizationResult !== 'error') {
+            UserStore.setNewProfile(authorizationResult);
           }
         }}
         validationSchema={Yup.object().shape({

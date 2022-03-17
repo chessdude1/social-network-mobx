@@ -14,8 +14,8 @@ interface ICustomTextFieldType {
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
   value: string;
-  helperText: string;
-  error: boolean;
+  helperText?: string;
+  error?: boolean;
 }
 
 export function CustomTextField({

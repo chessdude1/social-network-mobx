@@ -8,6 +8,7 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import { RegistrationPage } from './Views/RegistrationPage/RegistrationPage';
 import { AuthPage } from './Views/AuthPage/AuthPage';
+import { UserPage } from './Views/UserPage/UserPage';
 
 const theme = responsiveFontSizes(
   createTheme({
@@ -26,6 +27,7 @@ export const App = () => {
       <Routes>
         <Route path='/registration' element={<RegistrationPage />} />
         <Route path='/authorization' element={<AuthPage />} />
+        <Route path='/user' element={<UserPage />} />
         <Route path='*' element={<RegistrationPage />} />
       </Routes>
     </ThemeProvider>
