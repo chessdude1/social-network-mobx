@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Typography } from '@mui/material';
 import { CustomButton } from '../../../Common/CustomButton';
 import Box from '@mui/material/Box';
 import { UserStore } from '../../../Store/UserStore';
-
+import { CustomSnackBar } from '../../../Common/CustomSnackBar';
 interface IContact {
   name: string;
   number: string;
@@ -17,8 +17,15 @@ export const Contact: React.FC<IContact> = ({ name, number, variant }) => {
     UserStore.deleteContact(number);
   }
 
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <Card sx={{ minWidth: 275, maxWidth: '30vw', marginTop: '30px' }}>
+      <CustomSnackBar
+        setIsOpen={setIsOpen}
+        isOpen={isOpen}
+        messageText='Контакт уже добавлен в ваш список'
+      />
       <CardContent>
         <Typography variant='h2'>{name}</Typography>
         <Typography variant='h2'>{number}</Typography>
@@ -40,7 +47,13 @@ export const Contact: React.FC<IContact> = ({ name, number, variant }) => {
           <CustomButton
             type='button'
             onClick={() => {
-              UserStore.addContact(number, name);
+              const resultOfAddingContact = UserStore.addContact(number, name);
+              if (
+                resultOfAddingContact === 'already exist' ||
+                resultOfAddingContact === 'add yourself'
+              ) {
+                setIsOpen((prev) => !prev);
+              }
             }}
             variant='contained'
           >
