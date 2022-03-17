@@ -40,7 +40,7 @@ export const Contact: React.FC<IContact> = ({ name, number, variant }) => {
           <CustomButton
             type='button'
             onClick={() => {
-              console.log(name);
+              UserStore.addContact(number, name);
             }}
             variant='contained'
           >

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 
 import { createStyles, makeStyles } from '@mui/styles';
@@ -12,6 +12,8 @@ import { CustomTextField } from '../../Common/CustomTextField';
 import { CustomButton } from '../../Common/CustomButton';
 import { localHostService } from '../../Service/Serviсe';
 import { UserStore } from '../../Store/UserStore';
+import { CustomSnackBar } from '../../Common/CustomSnackBar';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -40,8 +42,14 @@ interface ISignUpForm {
   number: string;
 }
 
+export const TIMEBEFOREREDIRECT = 1500;
+
 export const RegistrationPage = () => {
   const classes = useStyles();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   return (
     <div className={classes.root}>
@@ -65,6 +73,12 @@ export const RegistrationPage = () => {
             );
             if (resultOfSetNewProfile === 'ok') {
               UserStore.setNewProfile(currentProfile);
+              UserStore.toggleAuthorizationStatus();
+              setTimeout(() => {
+                navigate('/user');
+              }, TIMEBEFOREREDIRECT);
+            } else if (resultOfSetNewProfile === 'error') {
+              setIsOpen((prev) => !prev);
             }
           } catch (e) {
             console.log(e);
@@ -96,6 +110,11 @@ export const RegistrationPage = () => {
 
           return (
             <Form className='registration-page__wrapper'>
+              <CustomSnackBar
+                setIsOpen={setIsOpen}
+                isOpen={isOpen}
+                messageText='аккаунт с введеным номер уже существует'
+              />
               <Typography
                 sx={{
                   fontWeight: '600',

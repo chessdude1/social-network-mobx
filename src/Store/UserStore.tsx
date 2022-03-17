@@ -8,7 +8,7 @@ class User {
     userName: 'test',
     password: 'test',
     number: '1',
-    contacts: [],
+    contacts: [{ number: '8800', userName: 'Test' }],
   };
   constructor() {
     makeAutoObservable(this);
@@ -23,12 +23,28 @@ class User {
     localHostService.deleteContact(this.profile, number);
   }
 
-  setUserAuthorized() {
-    this.isAutorized = true;
+  addContact(
+    number: string,
+    userName: string
+  ): 'already exist' | 'add yourself' | void {
+    for (let i = 0; i < this.profile.contacts.length; i++) {
+      if (this.profile.contacts[i].number === number) {
+        return 'already exist';
+      }
+    }
+    if (this.profile.number === number) {
+      return 'add yourself';
+    }
+    this.profile = {
+      ...this.profile,
+      contacts: [...this.profile.contacts, { number, userName }],
+    };
+
+    localHostService.addContact(this.profile.number, number, userName);
   }
 
-  setUserNotAuthorized() {
-    this.isAutorized = false;
+  toggleAuthorizationStatus() {
+    this.isAutorized = !this.isAutorized;
   }
 
   setNewProfile(profile: IProfile) {

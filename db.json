@@ -1,46 +1,33 @@
 {
   "profiles": [
     {
-      "userName": "Teta",
-      "password": "322",
-      "number": "123123",
-      "contacts": [],
-      "id": 1
-    },
-    {
-      "userName": "Test",
-      "password": "1234qwerQ!",
-      "number": "88005553535",
-      "contacts": [],
-      "id": 1
-    },
-    {
-      "userName": "Дмитрий",
+      "userName": "Artem",
       "password": "1234qwerQ!",
       "number": "89005553535",
-      "contacts": [
-        {
-          "userName": "test",
-          "number": "88000"
-        }
-      ],
+      "contacts": [],
+      "id": 1
+    },
+    {
+      "userName": "Alex",
+      "password": "1234qwerQ!",
+      "number": "89001113535",
+      "contacts": [],
       "id": 2
     }
   ],
   "users": [
     {
-      "userName": "Дмитрий",
-      "number": "89261234567",
-      "id": 2
+      "userName": "Artem",
+      "number": "89005553535",
+      "id": 1
     },
     {
-      "userName": "Дмитрий",
+      "userName": "Alex",
       "number": "89005553535",
-      "id": 3
+      "id": 2
     }
   ],
   "numbers": {
-    "89261234567": "",
     "89005553535": ""
   }
 }

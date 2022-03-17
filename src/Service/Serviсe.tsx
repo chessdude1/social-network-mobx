@@ -68,6 +68,24 @@ class Service {
     return findedProfiles.data;
   }
 
+  async addContact(
+    numberOfCurrentProfile: string,
+    numberOfProfileForAdd: string,
+    userName: string
+  ) {
+    let profileForAddNumber = await this.baseURL.get(
+      `profiles?q=${numberOfCurrentProfile}`
+    );
+    profileForAddNumber.data[0].contacts.push({
+      number: numberOfProfileForAdd,
+      userName,
+    });
+    await this.baseURL.put(
+      `profiles/${profileForAddNumber.data[0].id}`,
+      profileForAddNumber.data[0]
+    );
+  }
+
   async deleteContact(profile: IProfile, numberToDelete: string) {
     let profileForDeleting = await this.baseURL.get(
       `profiles?q=${profile.number}`
@@ -77,9 +95,11 @@ class Service {
         profileForDeleting.data[0].contacts.splice(i, 1);
       }
     }
-    console.log(profileForDeleting.data[0].id);
-    await this.baseURL.delete('profiles', profileForDeleting.data[0]);
-    await this.baseURL.post('profiles', profileForDeleting.data[0]);
+
+    await this.baseURL.put(
+      `profiles/${profileForDeleting.data[0].id}`,
+      profileForDeleting.data[0]
+    );
   }
 }
 

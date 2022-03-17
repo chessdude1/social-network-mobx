@@ -9,6 +9,8 @@ import './App.css';
 import { RegistrationPage } from './Views/RegistrationPage/RegistrationPage';
 import { AuthPage } from './Views/AuthPage/AuthPage';
 import { UserPage } from './Views/UserPage/UserPage';
+import { UserStore } from './Store/UserStore';
+import { observer } from 'mobx-react-lite';
 
 const theme = responsiveFontSizes(
   createTheme({
@@ -21,17 +23,20 @@ const theme = responsiveFontSizes(
   })
 );
 
-export const App = () => {
+export const App = observer(() => {
   return (
     <ThemeProvider theme={theme}>
       <Routes>
         <Route path='/registration' element={<RegistrationPage />} />
         <Route path='/authorization' element={<AuthPage />} />
-        <Route path='/user' element={<UserPage />} />
+        <Route
+          path='/user'
+          element={UserStore.isAutorized ? <UserPage /> : <AuthPage />}
+        />
         <Route path='*' element={<RegistrationPage />} />
       </Routes>
     </ThemeProvider>
   );
-};
+});
 
 export default App;

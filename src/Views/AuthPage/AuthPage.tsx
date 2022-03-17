@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Typography } from '@mui/material';
 
 import Grid from '@mui/material/Grid';
@@ -12,6 +12,9 @@ import { CustomTextField } from '../../Common/CustomTextField';
 import { CustomButton } from '../../Common/CustomButton';
 import { localHostService } from '../../Service/Serviсe';
 import { UserStore } from '../../Store/UserStore';
+import { CustomSnackBar } from '../../Common/CustomSnackBar';
+import { useNavigate } from 'react-router-dom';
+import { TIMEBEFOREREDIRECT } from '../RegistrationPage/RegistrationPage';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -35,8 +38,13 @@ interface ISignInForm {
   number: string;
   password: string;
 }
+
 export const AuthPage = () => {
   const classes = useStyles();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   return (
     <div className={classes.root}>
@@ -53,6 +61,12 @@ export const AuthPage = () => {
             );
           if (authorizationResult !== 'error') {
             UserStore.setNewProfile(authorizationResult);
+            UserStore.toggleAuthorizationStatus();
+            setTimeout(() => {
+              navigate('/user');
+            }, TIMEBEFOREREDIRECT);
+          } else {
+            setIsOpen((prev) => !prev);
           }
         }}
         validationSchema={Yup.object().shape({
@@ -76,6 +90,11 @@ export const AuthPage = () => {
 
           return (
             <Form>
+              <CustomSnackBar
+                setIsOpen={setIsOpen}
+                isOpen={isOpen}
+                messageText='Введен неверный логин или пароль'
+              />
               <Typography
                 sx={{
                   fontWeight: '600',
